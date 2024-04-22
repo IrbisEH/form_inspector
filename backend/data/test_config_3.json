@@ -1,0 +1,73 @@
+[
+  {
+    "test_id": "test",
+    "url": "https://strategirovanie.ru/",
+    "actions": [
+      {
+        "element_type": "button",
+        "search_type": "x_path",
+        "search_value": "//*[@id=\"rec650377993\"]/div/div/div[10]/a",
+        "action": "click"
+      },
+      {
+        "element_type": "button",
+        "search_type": "x_path",
+        "search_value": "//*[@id=\"rec652115118\"]/div/div/div[30]/a",
+        "action": "click"
+      },
+      {
+        "element_type": "input",
+        "search_type": "x_path",
+        "search_value": "//*[@id=\"input_1495810354468\"]",
+        "action": "send_keys",
+        "action_value": "Random Name"
+      },
+      {
+        "element_type": "input",
+        "search_type": "x_path",
+        "search_value": "//*[@id=\"input_1663653960955\"]",
+        "action": "send_keys",
+        "action_value": "Company name"
+      },
+      {
+        "element_type": "input",
+        "search_type": "x_path",
+        "search_value": "//*[@id=\"input_1663654013047\"]",
+        "action": "send_keys",
+        "action_value": "Position"
+      },
+      {
+        "element_type": "select",
+        "search_type": "x_path",
+        "search_value": "//*[@id=\"input_1495810359387\"]",
+        "action": "select",
+        "action_value": "Другое"
+      },
+      {
+        "element_type": "input",
+        "search_type": "x_path",
+        "search_value": "//*[@id=\"input_1684505393155\"]",
+        "action": "send_keys",
+        "action_value": "test@test.ru"
+      },
+      {
+        "element_type": "input",
+        "search_type": "x_path",
+        "search_value": "//*[@id=\"input_1495810410810\"]",
+        "action": "send_keys",
+        "action_value": "9215701717"
+      },
+      {
+        "element_type": "checkbox",
+        "search_type": "x_path",
+        "search_value": "//*[@id=\"form653552002\"]/div[2]/div[7]/div/label/div",
+        "action": "click"
+      },
+      {
+        "element_type": "button",
+        "search_type": "x_path",
+        "search_value": "//*[@id=\"form653552002\"]/div[2]/div[9]/button"
+      }
+    ]
+  }
+]

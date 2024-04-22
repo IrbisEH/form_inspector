@@ -1,0 +1,69 @@
+[
+  {
+    "task_name": "test_task",
+    "user_id": "1",
+    "target_page": "https://strategirovanie.ru/",
+    "inspect_type": "form",
+    "pre_check_actions": [
+      {
+        "el_type": "button",
+        "el_action": "click",
+        "x_path": "//*[@id=\"rec650377993\"]/div/div/div[10]/a"
+      },
+      {
+        "el_type": "button",
+        "el_action": "click",
+        "x_path": "//*[@id=\"rec652115118\"]/div/div/div[30]/a"
+      }
+    ],
+    "form_attribute": "name",
+    "form_attribute_name": "form653552002",
+    "form_components": [
+      {
+        "component_attribute": "name",
+        "component_attribute_name": "Name",
+        "component_type": "input",
+        "input_type": "name",
+        "input_value": ""
+      },
+      {
+        "component_attribute": "name",
+        "component_attribute_name": "Company",
+        "component_type": "input",
+        "input_type": "company",
+        "input_value": ""
+      },
+      {
+        "component_attribute": "name",
+        "component_attribute_name": "Textarea",
+        "component_type": "input",
+        "input_type": "text",
+        "input_value": ""
+      },
+      {
+        "component_attribute": "name",
+        "component_attribute_name": "Email",
+        "component_type": "input",
+        "input_type": "email",
+        "input_value": ""
+      },
+      {
+        "component_attribute": "name",
+        "component_attribute_name": "tildaspec-phone-part[]",
+        "component_type": "input",
+        "input_type": "phone",
+        "input_value": ""
+      },
+      {
+        "component_attribute": "class",
+        "component_attribute_name": "t-submit",
+        "component_type": "submit_button",
+        "action": "click"
+      }
+    ],
+    "redirect_page": "",
+    "redirect_page_check_el": [],
+    "devices": [],
+    "geo": []
+  }
+]
