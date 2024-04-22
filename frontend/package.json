@@ -1,0 +1,11 @@
+{
+  "name": "form_inspector",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "EH_IRBIS",
+  "license": "ISC"
+}
