@@ -10,15 +10,17 @@ class ConfigManager:
 
         self.debug = bool(int(os.getenv("DEBUG", False)))
 
-        self.db_host = str(os.getenv("DB_HOST"))
-        self.db_port = str(os.getenv("DB_PORT"))
-        self.db_name = str(os.getenv("DB_NAME"))
-        self.db_user = str(os.getenv("DB_USER"))
-        self.db_pass = str(os.getenv("DB_PASS"))
+        self.db_user = str(os.getenv("DB_USER", ""))
+        self.db_pass = str(os.getenv("DB_PASS", ""))
+        self.db_host = str(os.getenv("DB_HOST", ""))
+        self.db_port = str(os.getenv("DB_PORT", ""))
+        self.db_name = str(os.getenv("DB_NAME", ""))
 
         self.log_level = str(os.getenv("LOG_LEVEL", "INFO")) if not self.debug else "DEBUG"
         self.log_dir = f"{self.app_path}/logs"
         self.log_file = f"{self.app_path}/logs/{str(os.getenv('LOG_FILE', 'app.log'))}"
+
+        self.test_data_path = "/Users/evgenijhristenko/form_inspector/backend/data/test_config_3.json"
 
         if not os.path.isdir(self.log_dir):
             os.makedirs(self.log_dir, exist_ok=True)
