@@ -1,7 +1,12 @@
 [
   {
-    "test_id": "test",
+    "user_id": "1",
+    "enable": "1",
     "url": "https://strategirovanie.ru/",
+    "schedule": {
+      "time": ["10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"],
+      "week_days": ["1", "2", "3", "4", "5", "6", "7"]
+    },
     "actions": [
       {
         "element_type": "button",
