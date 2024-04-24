@@ -1,6 +1,8 @@
 import os
 import json
-from datetime import datetime
+
+from datetime import datetime, timedelta
+
 from app.Managers.ConfigManager import ConfigManager
 from app.Managers.LogManager import LogManager
 from app.Managers.DbManager import DbManager, TaskDbModel
@@ -8,71 +10,91 @@ from app.Managers.TelegramManager import TelegramManager
 
 from app.Models.TaskConfigModels import TaskModel
 
+
 DIR = os.path.abspath(os.path.dirname(__file__))
-# CREATE_TEST_DATA = True
 CREATE_TEST_DATA = False
 
-config_manager = ConfigManager(DIR)
-log_manager = LogManager(config_manager)
-db_manager = DbManager(config_manager, log_manager)
-# telegram_manager = TelegramManager()
 
-if CREATE_TEST_DATA:
-    task_data = None
+def write_to_db_test_data(json_data_file, log):
+    try:
+        data = None
 
-    with open(config_manager.test_data_path, "r") as json_file:
-        task_data = json.load(json_file)[0]
+        with open(json_data_file, "r") as file:
+            data = json.load(file)[0]
 
-    if task_data is None:
-        raise Exception("Test data not loaded")
+        if data is None:
+            raise Exception("Error! can not load test data.")
 
-    task_model = TaskModel(**task_data)
-    task_model.schedule = json.dumps(task_model.schedule)
-    task_model.actions = json.dumps(task_model.actions)
+        model = TaskModel(**data)
+        model.schedule = json.dumps(model.schedule)
+        model.actions = json.dumps(model.actions)
 
-    # db_manager.session.query(TaskModel).all()
+        db.session.add(model.get_db_model())
+        db.session.commit()
 
-    db_manager.session.add(task_model.get_db_model())
-    db_manager.session.commit()
+        log.debug("Create test row in db")
 
-    log_manager.debug("Create test row in db")
-
-
-# GET TASKS
-
-query_result = db_manager.session.query(TaskDbModel).all()
-
-for item in query_result:
-    task = TaskModel(**item.__dict__)
-    task.convert_props_dic()
-
-    cur_time = datetime.now()
-    cur_weekday = str(datetime.now().weekday())
-
-    if cur_weekday not in task.schedule["week_days"]:
-        log_manager.info("not today")
+    except Exception as e:
+        log.error(e)
         exit()
 
-    for time_string in task.schedule["time"]:
-        time_format = "%H:%M"
-        schedule_time = datetime.strptime(time_string, time_format).time()
-        
+def is_time_to_start(schedule, log):
+
+    result = False
+    time_format = "%H:%M"
+
+    try:
+        cur_time = datetime.now().time()
+        cur_weekday = str(datetime.now().weekday())
+
+        if cur_weekday in schedule["week_days"]:
+            for time_string in schedule["time"]:
+
+                start_period = (datetime.strptime(time_string, time_format) - timedelta(minutes=5)).time()
+                end_period = (datetime.strptime(time_string, time_format) + timedelta(minutes=5)).time()
+
+                if start_period < cur_time <= end_period:
+                    result = True
+
+    except Exception as e:
+        log.error(e)
+        exit()
+
+    return result
 
 
+if __name__ == "__main__":
+    try:
+        config = ConfigManager(DIR)
+        log = LogManager(config)
+        db = DbManager(config, log)
+        # telegram = TelegramManager()
 
+        # WRITE TEST DATA TO DB IF NEED
+        if CREATE_TEST_DATA:
+            write_to_db_test_data(config.test_data_path, log)
 
+        query_result = db.session.query(TaskDbModel).all()
 
+        if len(query_result) == 0:
+            log.warning("Not found any tasks in database.")
 
+        for item in query_result:
+            task = TaskModel(**item.__dict__)
+            task.convert_props_dic()
 
+            if not is_time_to_start(task.schedule, log):
+                continue
 
-# get task list from db
-# check time
-# if time run task
-# get result from task
-# send task results
+            print("start task")
 
+        # get task list from db
+        # check time
+        # if time run task
+        # get result from task
+        # send task results
 
-
-
-
+    except Exception as e:
+        log.error(e)
+        exit()
 
