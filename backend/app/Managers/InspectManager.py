@@ -18,7 +18,9 @@ class InspectManager:
     }
     WAIT = 3
 
-    def __init__(self, proxy=None, device=None, cookies=None, headless=True, url=None, actions=None):
+    def __init__(self, config_manager=None, log_manager=None, proxy=None, device=None, cookies=None, headless=True, url=None, actions=None):
+        self.config = config_manager
+        self.log = log_manager
         self.proxy = proxy
         self.device = device
         self.cookies = cookies
@@ -124,29 +126,13 @@ class InspectManager:
             print(e)
 
     def start(self):
+        inspect_result = {}
+
         self.set_driver()
-        self.web_driver.get(self.url)
+
+        # result = self.load_page(self.url)
+
         try:
-            for action in self.actions:
-                el = self.web_driver.find_element(
-                    self.SEARCH_TYPES[action.search_type],
-                    action.search_value
-                )
-
-                if not el.is_enabled():
-                    raise Exception(f"{vars(action)} is not enabled")
-                if not el.is_displayed():
-                    raise Exception(f"{vars(action)} is not displayed")
-
-                if action.action == "click":
-                    el.click()
-                elif action.action == "send_keys":
-                    el.send_keys(action.action_value)
-                elif action.action == "select":
-                    select = Select(el)
-                    select.select_by_visible_text(action.action_value)
-
-                time.sleep(1)
 
         except NoSuchElementException as e:
             print("Can't find element")
@@ -155,4 +141,54 @@ class InspectManager:
         except Exception as e:
             print(e)
 
-        time.sleep(10)
+
+        return inspect_result
+
+
+        # self.set_driver()
+        # self.web_driver.get(self.url)
+        # try:
+        #     for action in self.actions:
+        #         el = self.web_driver.find_element(
+        #             self.SEARCH_TYPES[action.search_type],
+        #             action.search_value
+        #         )
+        #
+        #         if not el.is_enabled():
+        #             raise Exception(f"{vars(action)} is not enabled")
+        #         if not el.is_displayed():
+        #             raise Exception(f"{vars(action)} is not displayed")
+        #
+        #         if action.action == "click":
+        #             el.click()
+        #         elif action.action == "send_keys":
+        #             el.send_keys(action.action_value)
+        #         elif action.action == "select":
+        #             select = Select(el)
+        #             select.select_by_visible_text(action.action_value)
+        #
+        #         time.sleep(1)
+        #
+        # except NoSuchElementException as e:
+        #     print("Can't find element")
+        # except TimeoutException as e:
+        #     print("Timeout. Can't find element")
+        # except Exception as e:
+        #     print(e)
+        #
+        # time.sleep(10)
+
+    def load_page(self, url):
+        result = None
+
+        try:
+            self.web_driver.get(url)
+
+            # проверки
+
+        except NoSuchElementException as e:
+            print("Can't find element")
+        except TimeoutException as e:
+            print("Timeout. Can't find element")
+        except Exception as e:
+            print(e)

@@ -9,10 +9,12 @@ from app.Managers.DbManager import DbManager, TaskDbModel
 from app.Managers.TelegramManager import TelegramManager
 
 from app.Models.TaskConfigModels import TaskModel
-
+from backend.app.Managers.InspectManager import InspectManager
 
 DIR = os.path.abspath(os.path.dirname(__file__))
 CREATE_TEST_DATA = False
+DELTA_TIME = 5
+HEADLESS = False
 
 
 def write_to_db_test_data(json_data_file, log):
@@ -50,8 +52,8 @@ def is_time_to_start(schedule, log):
         if cur_weekday in schedule["week_days"]:
             for time_string in schedule["time"]:
 
-                start_period = (datetime.strptime(time_string, time_format) - timedelta(minutes=5)).time()
-                end_period = (datetime.strptime(time_string, time_format) + timedelta(minutes=5)).time()
+                start_period = (datetime.strptime(time_string, time_format) - timedelta(minutes=DELTA_TIME)).time()
+                end_period = (datetime.strptime(time_string, time_format) + timedelta(minutes=DELTA_TIME)).time()
 
                 if start_period < cur_time <= end_period:
                     result = True
@@ -86,10 +88,18 @@ if __name__ == "__main__":
             if not is_time_to_start(task.schedule, log):
                 continue
 
-            print("start task")
+            inspector = InspectManager(
+                config_manager=config,
+                log_manager=log,
+                headless=HEADLESS,
+                url=task.url,
+                actions=task.actions
+            )
 
-        # get task list from db
-        # check time
+            result = inspector.start()
+
+            print(result)
+
         # if time run task
         # get result from task
         # send task results

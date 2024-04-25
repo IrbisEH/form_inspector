@@ -2,76 +2,149 @@
   {
     "user_id": "1",
     "enable": "1",
-    "url": "https://strategirovanie.ru/",
     "schedule": {
       "time": ["10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00"],
       "week_days": ["1", "2", "3", "4", "5", "6", "7"]
     },
     "actions": [
       {
-        "element_type": "button",
-        "search_type": "x_path",
-        "search_value": "//*[@id=\"rec650377993\"]/div/div/div[10]/a",
-        "action": "click"
+        "action": "load_page",
+        "url": "https://strategirovanie.ru/",
+        "check": [
+          {
+            "type": "element",
+            "search_type": "x_path",
+            "element": "",
+            "actions": ["is_enable"]
+          }
+        ]
       },
       {
         "element_type": "button",
         "search_type": "x_path",
-        "search_value": "//*[@id=\"rec652115118\"]/div/div/div[30]/a",
-        "action": "click"
+        "element": "//*[@id=\"rec650377993\"]/div/div/div[10]/a",
+        "action": "click",
+        "check": [
+          {
+            "type": "scroll_to",
+            "action": ["on_display"],
+            "search_type": "x_path",
+            "element": "//*[@id=\"rec652115118\"]/div/div/div[30]/a"
+          }
+        ]
+      },
+      {
+        "element_type": "button",
+        "search_type": "x_path",
+        "element": "//*[@id=\"rec652115118\"]/div/div/div[30]/a",
+        "action": "click",
+        "check": {
+          "type": "open_popup",
+          "action": ["on_display"],
+          "search_type": "x_path",
+          "element": "//*[@id=\"rec653552002\"]/div/div/div[2]"
+        }
       },
       {
         "element_type": "input",
         "search_type": "x_path",
-        "search_value": "//*[@id=\"input_1495810354468\"]",
+        "element": "//*[@id=\"input_1495810354468\"]",
         "action": "send_keys",
-        "action_value": "Random Name"
+        "action_value": "Random Name",
+        "check": {
+          "type": "input_text",
+          "action": ["on_display", "enable", "check_input_text"],
+          "search_type": "x_path",
+          "element": "//*[@id=\"input_1495810354468\"]"
+        }
       },
       {
         "element_type": "input",
         "search_type": "x_path",
-        "search_value": "//*[@id=\"input_1663653960955\"]",
+        "element": "//*[@id=\"input_1663653960955\"]",
         "action": "send_keys",
-        "action_value": "Company name"
+        "action_value": "Company name",
+        "check": {
+          "type": "input_text",
+          "action": ["on_display", "enable", "check_input_text"],
+          "search_type": "x_path",
+          "element": "//*[@id=\"input_1663653960955\"]"
+        }
       },
       {
         "element_type": "input",
         "search_type": "x_path",
-        "search_value": "//*[@id=\"input_1663654013047\"]",
+        "element": "//*[@id=\"input_1663654013047\"]",
         "action": "send_keys",
-        "action_value": "Position"
+        "action_value": "Position",
+        "check": {
+          "type": "input_text",
+          "action": ["on_display", "enable", "check_input_text"],
+          "search_type": "x_path",
+          "element": "//*[@id=\"input_1663654013047\"]"
+        }
       },
       {
         "element_type": "select",
         "search_type": "x_path",
-        "search_value": "//*[@id=\"input_1495810359387\"]",
+        "element": "//*[@id=\"input_1495810359387\"]",
         "action": "select",
-        "action_value": "Другое"
+        "action_value": "Другое",
+        "check": {
+          "type": "input_text",
+          "action": ["on_display", "enable", "check_select"],
+          "search_type": "x_path",
+          "element": "//*[@id=\"input_1495810359387\"]"
+        }
       },
       {
         "element_type": "input",
         "search_type": "x_path",
-        "search_value": "//*[@id=\"input_1684505393155\"]",
+        "element": "//*[@id=\"input_1684505393155\"]",
         "action": "send_keys",
-        "action_value": "test@test.ru"
+        "action_value": "test@test.ru",
+        "check": {
+          "type": "input_text",
+          "action": ["on_display", "enable", "check_input_text"],
+          "search_type": "x_path",
+          "element": "//*[@id=\"input_1684505393155\"]"
+        }
       },
       {
         "element_type": "input",
         "search_type": "x_path",
-        "search_value": "//*[@id=\"input_1495810410810\"]",
+        "element": "//*[@id=\"input_1495810410810\"]",
         "action": "send_keys",
-        "action_value": "9215701717"
+        "action_value": "9215701717",
+        "check": {
+          "type": "input_text",
+          "action": ["on_display", "enable", "check_input_text"],
+          "search_type": "x_path",
+          "element": "//*[@id=\"input_1495810410810\"]"
+        }
       },
       {
         "element_type": "checkbox",
         "search_type": "x_path",
-        "search_value": "//*[@id=\"form653552002\"]/div[2]/div[7]/div/label/div",
-        "action": "click"
+        "element": "//*[@id=\"form653552002\"]/div[2]/div[7]/div/label/div",
+        "action": "click",
+        "check": {
+          "type": "input_text",
+          "action": ["on_display", "enable", "check_input_text"],
+          "search_type": "x_path",
+          "element": "//*[@id=\"form653552002\"]/div[2]/div[7]/div/label/div"
+        }
       },
       {
         "element_type": "button",
         "search_type": "x_path",
-        "search_value": "//*[@id=\"form653552002\"]/div[2]/div[9]/button"
+        "element": "//*[@id=\"form653552002\"]/div[2]/div[9]/button",
+        "check": {
+          "type": "button",
+          "action": ["on_display", "enable"],
+          "search_type": "x_path",
+          "element": "//*[@id=\"form653552002\"]/div[2]/div[9]/button"
+        }
       }
     ]
   }
