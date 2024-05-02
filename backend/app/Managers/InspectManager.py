@@ -132,14 +132,14 @@ class InspectManager:
 
         # result = self.load_page(self.url)
 
-        try:
-
-        except NoSuchElementException as e:
-            print("Can't find element")
-        except TimeoutException as e:
-            print("Timeout. Can't find element")
-        except Exception as e:
-            print(e)
+        # try:
+        #
+        # except NoSuchElementException as e:
+        #     print("Can't find element")
+        # except TimeoutException as e:
+        #     print("Timeout. Can't find element")
+        # except Exception as e:
+        #     print(e)
 
 
         return inspect_result

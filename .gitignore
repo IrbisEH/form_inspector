@@ -164,3 +164,4 @@ misc.xml
 modules.xml
 .idea
 backend/logs
+frontend/node_modules
