@@ -19,7 +19,8 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Development',
+      template: 'src/index.html',
+      filename: './index.html'
     }),
   ],
   module: {
@@ -44,6 +45,27 @@ module.exports = {
         test: /\.xml$/i,
         use: ['xml-loader'],
       },
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader'
+        }
+      },
+      {
+        test: /\.html$/i,
+        // use: {
+        //   loader: 'html-loader'
+        // }
+        use: [
+          {
+            loader: 'html-loader'
+          }
+        ]
+      }
     ],
   },
+  resolve: {
+    extensions: ['.js', '.jsx', '.scss', '.json']
+  }
 };
